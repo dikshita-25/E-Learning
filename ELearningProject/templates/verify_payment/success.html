@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Payment Success {% endblock %}
+{% load static %}
+{% load course_tags %}
+{% block content %}
+<div class="container py-8 py-lg-6">
+    <div class="row">
+        <div class="col-xl-10 mx-xl-auto">
+            <img src="{% static 'assets/img/success.png' %}" width="60px" class="img-fluid mx-auto d-block">
+            <header class="entry-header mt-4">
+                <h1 class="entry-title text-center">Order received</h1>
+                <p class="text-center">Thank you. Your order has been received.</p>
+            </header>
+            <div class="row border border-info p-4">
+                <div class="col-lg-3">
+                    Order ID:<br>
+                    <strong>{{payment.order_id}}</strong>
+                </div>
+                <div class="col-lg-3">
+                    Date: <br>
+                    <strong>{{payment.date}}</strong>
+                </div>
+                <div class="col-lg-3">
+                    Total: <br>
+                    <strong>₹ {{payment.course.price}}</strong>
+                </div>
+                <div class="col-lg-3">
+                    Payment method: <br>
+                    <strong>Check payments</strong>
+                </div>
+            </div>
+            <br>
+            <div class="row p-4 border border-dark">
+                <h1>Order details</h1>
+                <table class="receipt-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <hr>
+                            <tr>
+                                <td>{{ payment.course.title }}</td>
+                                <td>₹{{ payment.course.price }}</td>
+                            </tr>
+                            <tr>
+                                <td>Discount:</td>
+                                <td>{{ payment.course.discount }}%</td>
+                            </tr>
+                             </tbody>
+                     <tfoot>
+                            <tr>
+                                <th scope="row">Subtotal:</th>
+                                <td>₹ {% discount_calculation payment.course.price payment.course.discount %}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Payment method:</th>
+                                <td>Online payment</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total:</th>
+                                <td>₹ {% discount_calculation payment.course.price payment.course.discount %}</td>
+                            </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
